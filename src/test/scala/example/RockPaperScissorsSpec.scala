@@ -71,10 +71,29 @@ class RockPaperScissorsSpec extends FlatSpec with Matchers {
   // Effort for refactoring might be high if abstracting early
   // abstract wins over
 
+
+  // TC: Rock wins
+  // Introduces the Rock into the program
+
+  // Still possible to introduce the player
+
+  // New entry point: not an option
+
+  // TC: Still possible to introduce draw
+
+  // TC: Scissors looses against rock
+
+  // Type: Use compiler to drive implementation
+
+  "Scissors" should "not win over other scissors" in {
+    Scissors.winsOver(Scissors) shouldEqual false
+  }
+
   sealed trait Hand {
-    def winsOver(otherHand: Hand): Boolean = this match {
-      case Scissors => true
-      case Paper => false
+    def winsOver(otherHand: Hand): Boolean = (this, otherHand) match {
+      case (Scissors, Paper) => true
+      case (Paper, Scissors) => false
+      case (x, y) => x != y
     }
   }
 
