@@ -72,15 +72,12 @@ class RockPaperScissorsSpec extends FlatSpec with Matchers {
   // abstract wins over
 
   sealed trait Hand {
-    def winsOver(otherHand: Hand): Boolean
+    def winsOver(otherHand: Hand): Boolean = this match {
+      case Scissors => true
+      case Paper => false
+    }
   }
 
-  object Scissors extends Hand {
-    def winsOver(paper: Hand) = true
-  }
-
-  object Paper extends Hand {
-    def winsOver(scissors: Hand) = false
-  }
-
+  object Scissors extends Hand
+  object Paper extends Hand
 }
