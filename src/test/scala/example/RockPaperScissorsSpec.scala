@@ -96,6 +96,18 @@ class RockPaperScissorsSpec extends FlatSpec with Matchers {
     Paper.winsOver(Paper) shouldEqual false
   }
 
+  // Introduce a notion who won
+  // We need to know in which context we are
+  // Playing against the computer? Human?
+  // When does someone win? Whole round? More than one round?
+  // Is it important to remember the number of wins?
+  // Inject algorithm for a specific context
+  // Computer player -> human player
+  // Test player
+
+  // Introduce a notion of draw
+
+
   sealed trait Hand {
     def winsOver(otherHand: Hand): Boolean = (this, otherHand) match {
       case (Scissors, Paper) => true
