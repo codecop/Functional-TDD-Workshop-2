@@ -62,14 +62,25 @@ class RockPaperScissorsSpec extends FlatSpec with Matchers {
     Paper.winsOver(Scissors) shouldEqual false
   }
 
-  object Scissors {
-    def winsOver(paper: Any) = true
+  // I need an incentive to doubt my instincts
+  // Mechanical approach: Go back to the rules
+  // Rules of three: Recommendation?
+  // I expect a pattern but I cannot see it
+  // --> Ignorance is a bliss
+  // Abstract later might be better: More evidence
+  // Effort for refactoring might be high if abstracting early
+  // abstract wins over
 
+  sealed trait Hand {
+    def winsOver(otherHand: Hand): Boolean
   }
 
-  object Paper {
-    def winsOver(scissors: Any) = false
+  object Scissors extends Hand {
+    def winsOver(paper: Hand) = true
+  }
 
+  object Paper extends Hand {
+    def winsOver(scissors: Hand) = false
   }
 
 }
