@@ -1,0 +1,33 @@
+module Insight where
+
+import Data.Monoid
+import Data.Foldable (foldMap)
+
+data Balance = Bal Int Int -- number of ))), number of (((
+derive Eq Balance
+
+instance Monoid Balance where
+  mempty = Bal 0 0
+  mappend (Bal a b) (Bal c d)
+    | b <= c = Bal (a + c - b) (d) -- less ( than matching )) so overflow goes to the left
+    | true   = Bal (a) (d + b - c) -- otherwise to the right
+
+parse :: Char -> Balance
+parse ')' = Bal 1 0
+parse '(' = Bal 0 1
+parse _   = Bal 0 0
+
+isBalanced :: String -> Bool
+isBalanced str = Bal 0 0 == foldr mappend mempty (map parse (unpacked str))
+-- isBalanced str = Bal 0 0 == foldr (mappend . parse) mempty (unpacked str)
+-- isBalanced str = Bal 0 0 == foldMap parse (unpacked str)
+
+main = do
+  println $ false == isBalanced  "("
+  println $ false == isBalanced  "))(("
+  println $ false == isBalanced  ")"
+  println $ true  == isBalanced  "()"
+  println $ false == isBalanced  ")()"
+  println $ false == isBalanced  "(()"
+  println $ false == isBalanced  "())"
+  println $ true  == isBalanced  "((()())())()"
