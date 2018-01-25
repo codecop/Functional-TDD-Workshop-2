@@ -85,8 +85,15 @@ class RockPaperScissorsSpec extends FlatSpec with Matchers {
 
   // Type: Use compiler to drive implementation
 
+  //    val allHands = Table("hand", Scissors, Paper)
+  //    forAll(allHands) { (hand: Hand) => hand.winsOver(hand) shouldEqual true }
+
   "Scissors" should "not win over other scissors" in {
     Scissors.winsOver(Scissors) shouldEqual false
+  }
+
+  "Paper" should "not win over other paper" in {
+    Paper.winsOver(Paper) shouldEqual false
   }
 
   sealed trait Hand {
